@@ -1,11 +1,8 @@
-using RDatasets
+using RDatasets, Resampling
 
 iris = data("datasets", "iris")
 
-indices = [1:150]
-shuffle!(indices)
-train_set = iris[indices[1:100], :]
-test_set = iris[indices[101:150], :]
+train_set, test_set = splitrandom(iris, 2/3)
 
 train_features = matrix(train_set[:, 2:5])
 test_features = matrix(test_set[:, 2:5])

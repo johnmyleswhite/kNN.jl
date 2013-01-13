@@ -20,14 +20,11 @@ The arguments here are:
 
 Here we test the `knn()` function on data for which we know the correct classification to assess the capability of the algorithm to impute classes correctly:
 
-    using RDatasets, kNN
+    using RDatasets, kNN, Resampling
 
     iris = data("datasets", "iris")
 
-    indices = [1:150]
-    shuffle!(indices)
-    train_set = iris[indices[1:100], :]
-    test_set = iris[indices[101:150], :]
+    train_set, test_set = splitrandom(iris, 2/3)
 
     train_features = matrix(train_set[:, 2:5])
     test_features = matrix(test_set[:, 2:5])
