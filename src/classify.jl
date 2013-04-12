@@ -6,7 +6,7 @@ function knn(train_features::Matrix,
     n_train = size(train_features, 1)
     n_test = size(test_features, 1)
 
-    D = dist(vcat(train_features, test_features))
+    D = distances(vcat(train_features, test_features))
     # Search training cases for neighbors of test cases
     D = D[(n_train + 1):(n_train + n_test), 1:n_train]
 
