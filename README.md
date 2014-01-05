@@ -3,7 +3,11 @@ kNN.jl
 
 Basic k-nearest neighbors classification and regression.
 
-# Example 1: Euclidean distance
+For a list of the distance metrics that can be used in k-NN classification, see [Distance.jl](https://github.com/lindahua/Distance.jl)
+
+For a list of the smoothing kernels that can be used in kernel regression, see [SmoothingKernel.jl](https://github.com/johnmyleswhite/SmoothingKernels.jl)
+
+# Example 1: Classification using Euclidean distance
 
     using kNN
     using DataArrays
@@ -28,7 +32,7 @@ Basic k-nearest neighbors classification and regression.
     mean(predict_k4 .== y)
     mean(predict_k5 .== y)
 
-# Example 2: Manhattan distance
+# Example 2: Classification using Manhattan distance
 
     using kNN
     using DataArrays
@@ -52,3 +56,25 @@ Basic k-nearest neighbors classification and regression.
     mean(predict_k3 .== y)
     mean(predict_k4 .== y)
     mean(predict_k5 .== y)
+
+# Example 3: Regression using Gaussian kernel
+
+    using Base.Test
+    using kNN
+    using Stats
+
+    srand(1)
+    n = 1_000
+    x = 10 * randn(n)
+    y = sin(x) + 0.5 * randn(n)
+
+    fit = kernelregression(x, y, kernel = :gaussian)
+    grid = minimum(x):0.1:maximum(x)
+    predictions = predict(fit, grid)
+
+# To Do
+
+* Allow user to request that `knn` generate a ball tree, KD-tree or cover tree as a method for conducting nearest neighbor searches.
+* Allow user to request that approximate nearest neighbors be returned instead of exact nearest neighbors.
+* Clean up API
+
