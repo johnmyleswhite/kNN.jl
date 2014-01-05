@@ -1,6 +1,6 @@
 # Find the majority vote from k-neighbors
 function majority_vote(labels::Vector)
-    counts = xtabs(labels)
+    counts = countmap(labels)
     res = labels[1]
     max_value = -1
     for (k, v) in counts

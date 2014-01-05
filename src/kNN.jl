@@ -1,11 +1,13 @@
-using DataFrames
+using Stats
+using Distance
 
 module kNN
     export knn
 
-    using DataFrames, Stats
+    using Stats
+    using Distance
+    using NearestNeighbors
 
     include("majority_vote.jl")
-    include("k_nearest_neighbors.jl")
-    include("classify.jl")
+    include("classifier.jl")
 end

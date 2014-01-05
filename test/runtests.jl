@@ -4,9 +4,8 @@
 
 using kNN
 
-my_tests = ["test/majority_vote.jl",
-            "test/k_nearest_neighbors.jl",
-            "test/knn.jl"]
+my_tests = ["majority_vote.jl",
+            "classifier.jl"]
 
 println("Running tests:")
 
