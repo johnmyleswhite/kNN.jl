@@ -4,4 +4,4 @@ Distance
 NearestNeighbors
 RDatasets
 SmoothingKernels
-Stats
+StatsBase

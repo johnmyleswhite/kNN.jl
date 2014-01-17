@@ -1,10 +1,10 @@
-using Stats
+using StatsBase
 using Distance
 
 module kNN
     export knn, kernelregression
 
-    using Stats
+    using StatsBase
     using Distance
     using NearestNeighbors
 	using SmoothingKernels

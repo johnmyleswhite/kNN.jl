@@ -1,7 +1,7 @@
 module TestRegress
 	using Base.Test
 	using kNN
-	using Stats
+	using StatsBase
 
 	srand(1)
 	n = 1_000

@@ -61,7 +61,7 @@ For a list of the smoothing kernels that can be used in kernel regression, see [
 
     using Base.Test
     using kNN
-    using Stats
+    using StatsBase
 
     srand(1)
     n = 1_000
@@ -77,4 +77,3 @@ For a list of the smoothing kernels that can be used in kernel regression, see [
 * Allow user to request that `knn` generate a ball tree, KD-tree or cover tree as a method for conducting nearest neighbor searches.
 * Allow user to request that approximate nearest neighbors be returned instead of exact nearest neighbors.
 * Clean up API
-

@@ -11,7 +11,7 @@ function kernelregression{R <: Any,
                                      y::Vector{T};
                                      kernel::Symbol = :epanechnikov,
                                      bandwidth::Real = NaN,
-                                     getbandwidth::Function = Stats.bandwidth)
+                                     getbandwidth::Function = StatsBase.bandwidth)
     if isnan(bandwidth)
         h_x = getbandwidth(x)
         h_y = getbandwidth(y)
@@ -23,7 +23,7 @@ function kernelregression{R <: Any,
     return KernelRegression(x, y, k, h)
 end
 
-function Stats.predict(model::KernelRegression, x::Real)
+function StatsBase.predict(model::KernelRegression, x::Real)
     y, n = 0.0, length(model.x)
     h, k = model.h, model.k
     normalizer = 0.0
@@ -37,9 +37,9 @@ function Stats.predict(model::KernelRegression, x::Real)
     return y / normalizer
 end
 
-function Stats.predict!{T <: Real}(ys::Vector,
-                                   model::KernelRegression,
-                                   xs::AbstractVector{T})
+function StatsBase.predict!{T <: Real}(ys::Vector,
+                                       model::KernelRegression,
+                                       xs::AbstractVector{T})
     n = length(xs)
     # @assert length(ys) == n
     for i in 1:n
@@ -48,8 +48,8 @@ function Stats.predict!{T <: Real}(ys::Vector,
     return
 end
 
-function Stats.predict{T <: Real}(model::KernelRegression,
-                                  xs::AbstractVector{T})
+function StatsBase.predict{T <: Real}(model::KernelRegression,
+                                      xs::AbstractVector{T})
     ys = Array(Float64, length(xs))
     predict!(ys, model, xs)
     return ys

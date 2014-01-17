@@ -5,7 +5,7 @@ module TestClassifier
 	using DataFrames
     using RDatasets
     using Distance
-    using Stats
+    using StatsBase
 
     iris = data("datasets", "iris")
     X = array(iris[:, 1:4])'
