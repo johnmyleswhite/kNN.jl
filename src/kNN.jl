@@ -9,6 +9,8 @@ module kNN
     using SmoothingKernels
 
     include("majority_vote.jl")
+	include("generic.jl")
+    include("naive.jl")
     include("classifier.jl")
     include("regress.jl")
 end
