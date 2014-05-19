@@ -8,9 +8,10 @@ module kNN
     using Distance    
     using SmoothingKernels
 
-    include("majority_vote.jl")
-	include("generic.jl")
+    include("majority_vote.jl")	
+    include("generic.jl")
     include("naive.jl")
+    include("kdtree.jl")
     include("classifier.jl")
     include("regress.jl")
 end

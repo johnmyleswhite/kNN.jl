@@ -6,7 +6,8 @@ using kNN
 
 my_tests = ["majority_vote.jl",
             "classifier.jl",
-            "regress.jl"]
+            "regress.jl",
+            "kdtree.jl"]
 
 println("Running tests:")
 
