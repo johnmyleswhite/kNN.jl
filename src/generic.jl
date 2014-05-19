@@ -1,1 +1,3 @@
-abstract NearestNeighborTree
+abstract AbstractNearestNeighborTree
+
+abstract NearestNeighborTree <: AbstractNearestNeighborTree
