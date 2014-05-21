@@ -1,3 +1,5 @@
+export NearestNeighborTree
+
 abstract AbstractNearestNeighborTree
 
 abstract NearestNeighborTree <: AbstractNearestNeighborTree

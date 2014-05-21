@@ -2,6 +2,7 @@ module TestKDTree
 	using Base.Test
 	using Distance
 	using kNN
+	using StatsBase
 	
 	# Empty tree
 	t = KDTree{Vector,Int}()
@@ -24,7 +25,7 @@ module TestKDTree
 	@test typeof(t.root) <: kNN.KDTreeNode
 
 	# Search
-	ind, dist = kNN.nearest(t, [3], 2)
+	ind, dist = nearest(t, [3], 2)
 	@test length(ind) == 2
 	@test length(dist) ==  2
 	@test 3 in ind && 1 in ind

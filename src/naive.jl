@@ -1,6 +1,5 @@
 export NaiveNeighborTree, nearest
 
-
 immutable NaiveNeighborTree <: NearestNeighborTree
     X::Matrix
     metric::Metric
