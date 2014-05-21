@@ -20,7 +20,7 @@ module TestKDTree
 	@test t.root.v == 1	
 
 	# With multiple points	
-	X = [1  60  29  86  44]
+	X = [1  60  29  7 86  44 23 54 12]
 	t = KDTree{Vector{Int},Int}(X, Euclidean())
 	@test typeof(t.root) <: kNN.KDTreeNode
 
@@ -28,6 +28,6 @@ module TestKDTree
 	ind, dist = nearest(t, [3], 2)
 	@test length(ind) == 2
 	@test length(dist) ==  2
-	@test 3 in ind && 1 in ind
-	@test 26.0 in dist && 2.0 in dist
+	@test 8 in ind && 1 in ind
+	@test 9.0 in dist && 2.0 in dist
 end

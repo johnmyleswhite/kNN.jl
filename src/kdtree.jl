@@ -1,9 +1,8 @@
 import Base: setindex!, show
 
 using Base.Collections
-#using DataStructures
 
-export KDTree, nearest, nearest2
+export KDTree, nearest
 
 abstract AbstractKDTree{K, V} <: AbstractNearestNeighborTree
 
@@ -61,7 +60,7 @@ function setindex!{K,V}(n::KDTreeNode{K,V}, v::V, k::K)
 			right_v = v		
 		end
 		n.s = 0.5*(right_k[n.d] + left_k[n.d])
-		next_sd = ((n.d+1) % length(v))+1
+		next_sd = ((n.d) % length(k))+1
 
 		n.left = KDTreeNode{K,V}(left_k, left_v, next_sd)
 		n.right = KDTreeNode{K,V}(right_k, right_v, next_sd)
@@ -86,18 +85,25 @@ function disp(n::KDTreeNode, l::Int = 0)
 end
 
 function nearest{K, V}(t::KDTree{K, V}, x::K, k::Int)	
-	stack = KDTreeNode{K, V}[]
-	pq = PriorityQueue{Float64,V}()	
-	push!(stack, t.root)
-	while length(stack) > 0
-		n = pop!(stack)
+	stack = Array(KDTreeNode{K, V}, k)
+	h = Float64[]
+	index = Dict{Float64,V}()
+	sti = 1
+	stack[sti] = t.root
+	T = 1.0e10
+	while sti > 0 # length(stack) > 0 
+		n = stack[sti] # n = pop!(stack)		
+		sti -= 1
 		if n.leaf
-			d = evaluate(t.metric, x, n.k)
-			if length(pq) < k || d < peek(pq)[1]
-				while length(pq) >= k
-					dequeue!(pq)
+			d = evaluate(t.metric, x, n.k)			
+			if (length(h) < k) || (d < T)
+				while length(h) >= k
+					p = heappop!(h, Base.Order.Reverse) 				
+					pop!(index, p)
 				end
-				enqueue!(pq, d, n.v)
+				heappush!(h, d, Base.Order.Reverse)
+				push!(index, d, n.v)
+				T =  h[1]								
 			end
 		else
 			# Determine nearest and furtherest branch			
@@ -109,71 +115,38 @@ function nearest{K, V}(t::KDTree{K, V}, x::K, k::Int)
 				far = n.right
 			end
 
-			# Only search far tree if do not have enough neighbors
-			if length(pq) < k 
-				push!(stack, far)
+			# Only search far tree if do not have enough neighbors	
+			d = (x[n.d]-n.s)*(x[n.d]-n.s)		
+			if length(h) < k || d <= T #evaluate(t.metric, x[n.d], n.s) <= T				
+				sti += 1
+				if sti > length(stack)
+					push!(stack, far)
+				else
+					stack[sti] = far
+				end	
+				# push!(stack, far)			
 			end
 
 			# Search the nearest branch
-			push!(stack, near)
+			sti += 1
+			if sti > length(stack)
+				push!(stack, near)
+			else
+				stack[sti] = near
+			end	
+			#push!(stack, near)		
 		end
 	end
 
-	vals = eltype(pq)[2][]
-	dists = Float64[]
-	i = start(pq)
-	while !done(pq, i)
-		(v, i) = next(pq, i)
-		push!(dists, v[1])
-		push!(vals, v[2])
+	vals = Array(eltype(index)[2], k)
+	dists = Array(Float64, k)
+	i = start(index)
+	j = 1
+	while !done(index, i)
+		(v, i) = next(index, i)
+		dists[j] = v[1]
+		vals[j] = v[2]
+		j += 1
 	end	
 	return vals, dists
 end
-
-# function nearest{K, V}(t::KDTree{K, V}, x::K, k::Int)	
-# 	stack = KDTreeNode{K, V}[]
-# 	h = binary_minheap(Float64)
-# 	index = OrderedDict(Float64,V)
-# 	push!(stack, t.root)
-# 	while length(stack) > 0
-# 		n = pop!(stack)
-# 		if n.leaf
-# 			d = evaluate(t.metric, x, n.k)
-# 			if length(h) < k || d < top(h)
-# 				while length(h) >= k
-# 					p = pop!(h)
-# 					pop!(index, p)
-# 				end
-# 				push!(h, d)
-# 				push!(index, d, n.v)
-# 			end
-# 		else
-# 			# Determine nearest and furtherest branch			
-# 			if (x[n.d] > n.s)
-# 				near = n.right
-# 				far = n.left
-# 			else
-# 				near = n.left
-# 				far = n.right
-# 			end
-
-# 			# Only search far tree if do not have enough neighbors
-# 			if length(h) < k 
-# 				push!(stack, far)
-# 			end
-
-# 			# Search the nearest branch
-# 			push!(stack, near)
-# 		end
-# 	end
-
-# 	vals = eltype(index)[2][]
-# 	dists = Float64[]
-# 	i = start(index)
-# 	while !done(index, i)
-# 		(v, i) = next(index, i)
-# 		push!(dists, v[1])
-# 		push!(vals, v[2])
-# 	end	
-# 	return vals, dists
-# end
