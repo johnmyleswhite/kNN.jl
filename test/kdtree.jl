@@ -28,6 +28,6 @@ module TestKDTree
 	ind, dist = nearest(t, [3], 2)
 	@test length(ind) == 2
 	@test length(dist) ==  2
-	@test 8 in ind && 1 in ind
-	@test 9.0 in dist && 2.0 in dist
+	@test 4 in ind && 1 in ind
+	@test 4.0 in dist && 2.0 in dist
 end
