@@ -4,9 +4,10 @@
 
 using kNN
 
-my_tests = ["majority_vote.jl",            
+my_tests = ["majority_vote.jl",
             "regress.jl",
-            "kdtree.jl"]
+            "kdtree.jl",
+            "classifier.jl"]
 
 println("Running tests:")
 
