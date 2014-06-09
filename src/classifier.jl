@@ -1,12 +1,16 @@
-immutable kNNClassifier
-    t::NaiveNeighborTree
+immutable kNNClassifier{T <: NearestNeighborTree}
+    t::T
     y::Vector
 end
 
-function knn(X::Matrix,
-             y::Vector;
-             metric::Metric = Euclidean())
-    return kNNClassifier(NaiveNeighborTree(X, metric), y)
+knn(X::Matrix, y::Vector) = knn(X, y, NaiveNeighborTree)
+
+function knn{K <: NearestNeighborTree, T  <: Real}(
+                X::Matrix{T},
+                y::Vector,
+                ::Type{K};
+                metric::Metric = Euclidean())
+    return kNNClassifier(K(X, metric), y)
 end
 
 # TODO: Don't construct copy of model.y just to extract majority vote
