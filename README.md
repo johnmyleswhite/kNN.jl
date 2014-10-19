@@ -3,7 +3,7 @@ kNN.jl
 
 Basic k-nearest neighbors classification and regression.
 
-For a list of the distance metrics that can be used in k-NN classification, see [Distance.jl](https://github.com/lindahua/Distance.jl)
+For a list of the distance metrics that can be used in k-NN classification, see [Distances.jl](https://github.com/JuliaStats/Distances.jl)
 
 For a list of the smoothing kernels that can be used in kernel regression, see [SmoothingKernel.jl](https://github.com/johnmyleswhite/SmoothingKernels.jl)
 
@@ -13,7 +13,7 @@ For a list of the smoothing kernels that can be used in kernel regression, see [
     using DataArrays
     using DataFrames
     using RDatasets
-    using Distance
+    using Distances
 
     iris = data("datasets", "iris")
     X = array(iris[:, 1:4])'
@@ -38,7 +38,7 @@ For a list of the smoothing kernels that can be used in kernel regression, see [
     using DataArrays
     using DataFrames
     using RDatasets
-    using Distance
+    using Distances
 
     iris = data("datasets", "iris")
     X = array(iris[:, 1:4])'

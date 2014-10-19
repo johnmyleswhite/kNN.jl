@@ -4,7 +4,7 @@ module TestClassifier
 	using DataArrays
 	using DataFrames
     using RDatasets
-    using Distance
+    using Distances
     using StatsBase
 
     iris = data("datasets", "iris")

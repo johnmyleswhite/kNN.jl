@@ -1,11 +1,11 @@
 using StatsBase
-using Distance
+using Distances
 
 module kNN
     export knn, kernelregression
 
     using StatsBase
-    using Distance
+    using Distances
     using NearestNeighbors
 	using SmoothingKernels
 
