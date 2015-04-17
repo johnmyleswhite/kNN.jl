@@ -15,7 +15,7 @@ For a list of the smoothing kernels that can be used in kernel regression, see [
     using RDatasets
     using Distances
 
-    iris = data("datasets", "iris")
+    iris = dataset("datasets", "iris")
     X = array(iris[:, 1:4])'
     y = array(iris[:, 5])
     model = knn(X, y, metric = Euclidean())
@@ -40,7 +40,7 @@ For a list of the smoothing kernels that can be used in kernel regression, see [
     using RDatasets
     using Distances
 
-    iris = data("datasets", "iris")
+    iris = dataset("datasets", "iris")
     X = array(iris[:, 1:4])'
     y = array(iris[:, 5])
     model = knn(X, y, metric = Cityblock())
