@@ -1,4 +1,4 @@
-immutable KernelRegression{R <: Union(Vector, Matrix), T <: Real}
+immutable KernelRegression{R <: Union{Vector, Matrix}, T <: Real}
     x::R
     y::Vector{T}
     k::Function
