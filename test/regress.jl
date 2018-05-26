@@ -6,7 +6,7 @@ module TestRegress
 	srand(1)
 	n = 1_000
 	x = 10 * randn(n)
-	y = sin(x) + 0.5 * randn(n)
+	y = sin.(x) + 0.5 * randn(n)
 
 	fit = kernelregression(x, y)
 	grid = minimum(x):0.1:maximum(x)

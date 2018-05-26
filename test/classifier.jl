@@ -7,9 +7,9 @@ module TestClassifier
     using Distances
     using StatsBase
 
-    iris = data("datasets", "iris")
-    X = array(iris[:, 1:4])'
-    y = array(iris[:, 5])
+    iris = dataset("datasets", "iris")
+    X = Array(iris[:, 1:4])'
+    y = Array(iris[:, 5])
     model = knn(X, y, metric = Euclidean())
 
     predict_k1 = predict(model, X, 1)

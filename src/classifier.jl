@@ -1,19 +1,19 @@
 immutable kNNClassifier
-    t::NaiveNeighborTree
+    t::BruteTree
     y::Vector
 end
 
 function knn(X::Matrix,
              y::Vector;
              metric::Metric = Euclidean())
-    return kNNClassifier(NaiveNeighborTree(X, metric), y)
+    return kNNClassifier(BruteTree(X, metric), y)
 end
 
 # TODO: Don't construct copy of model.y just to extract majority vote
 function StatsBase.predict(model::kNNClassifier,
                            x::Vector,
                            k::Integer = 1)
-    inds, dists = nearest(model.t, x, k)
+    inds, dists = NearestNeighbors.knn(model.t, x, k)
     return majority_vote(model.y[inds])
 end
 
@@ -33,7 +33,7 @@ end
 function StatsBase.predict(model::kNNClassifier,
                            X::Matrix,
                            k::Integer = 1)
-    predictions = Array(eltype(model.y), size(X, 2))
+    predictions = Array{eltype(model.y)}(size(X, 2))
     predict!(predictions, model, X, k)
     return predictions
 end
