@@ -11,7 +11,7 @@ function kernelregression{R <: Any,
                                      y::Vector{T};
                                      kernel::Symbol = :epanechnikov,
                                      bandwidth::Real = NaN,
-                                     getbandwidth::Function = StatsBase.bandwidth)
+                                     getbandwidth::Function = kNN.bandwidth)
     if isnan(bandwidth)
         h_x = getbandwidth(x)
         h_y = getbandwidth(y)
@@ -50,7 +50,7 @@ end
 
 function StatsBase.predict{T <: Real}(model::KernelRegression,
                                       xs::AbstractVector{T})
-    ys = Array(Float64, length(xs))
+    ys = Array{T}(length(xs))
     predict!(ys, model, xs)
     return ys
 end
