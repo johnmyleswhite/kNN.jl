@@ -1,6 +1,8 @@
 kNN.jl
 ======
-
+---
+_*Note:*_ This library is not activly developed. See [NearestNeighbors.jl](https://github.com/KristofferC/NearestNeighbors.jl) for an updated alternative.
+---
 Basic k-nearest neighbors classification and regression.
 
 For a list of the distance metrics that can be used in k-NN classification, see [Distances.jl](https://github.com/JuliaStats/Distances.jl)
