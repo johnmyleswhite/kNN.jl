@@ -9,6 +9,7 @@ module kNN
     using NearestNeighbors
 	using SmoothingKernels
 
+    include("bandwidth.jl")
     include("majority_vote.jl")
     include("classifier.jl")
     include("regress.jl")
